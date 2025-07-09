@@ -6,7 +6,7 @@ from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA
 import plotly.express as px
 
-# 📁 Load your datasets
+# 📁 Loading  datasets
 base_path = r"C:\Users\DELL\OneDrive\Bureau\New folder\Recommandation_System"
 genre_data = pd.read_csv(base_path + r"\data_by_genres.csv")
 song_data = pd.read_csv(base_path + r"\data.csv")
