@@ -9,8 +9,7 @@ load_dotenv()
 
 # Load dataset
 base_path = r"C:\Users\DELL\OneDrive\Bureau\New folder\Recommandation_System"
-data = pd.read_csv(base_path + r"\data.csv")
-
+data = pd.read_csv("data.csv")
 st.set_page_config(page_title="🎵 Spotify Recommender", layout="centered")
 st.title("🎧 Music Recommendation System")
 

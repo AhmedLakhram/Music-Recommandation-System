@@ -69,14 +69,12 @@ def get_mean_vector(song_list, spotify_data):
             continue
         numeric = song_data[song_data.map(np.isreal)]
         song_vectors.append(numeric.values)
+
+    if not song_vectors:
+        raise ValueError("No valid songs found. Cannot compute recommendations.")
+    
     return np.mean(song_vectors, axis=0)
 
-def flatten_dict_list(dict_list):
-    flattened = defaultdict(list)
-    for entry in dict_list:
-        for key, value in entry.items():
-            flattened[key].append(value)
-    return flattened
 
 def recommend_songs(song_list, spotify_data, n_recommendations=10):
     metadata_cols = ['name', 'year']
