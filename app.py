@@ -1,22 +1,19 @@
 import streamlit as st
 from recommendation_system import recommend_songs
 
-st.set_page_config(page_title="🎧 Music Recommendation System", layout="centered")
+st.set_page_config(page_title="🎵 Song Recommendation App", layout="centered")
 
 st.title("🎵 Song Recommendation App")
-st.markdown("Find similar songs based on your favorite track.")
+st.markdown("Find similar songs based on your favorite track using Spotify API or the local dataset.")
 
-# Input fields
-song = st.text_input("Enter a song name")
-result = recommend_songs(song)
+song_name = st.text_input("🎧 Enter a song name")
 
+if song_name:
+    with st.spinner("🔎 Searching for recommendations..."):
+        result = recommend_songs(song_name)
 
-# Recommend button
-if st.button("🔍 Recommend Songs"):
-    with st.spinner("Finding recommendations..."):
-        recommendations = recommend_songs(song_name, year)
-        if isinstance(recommendations, str):
-            st.error(recommendations)
-        else:
-            st.success("Here are your recommended songs:")
-            st.dataframe(recommendations)
+    if isinstance(result, str):
+        st.error(result)
+    else:
+        st.success(f"✅ Recommendations for '{song_name}':")
+        st.dataframe(result)
