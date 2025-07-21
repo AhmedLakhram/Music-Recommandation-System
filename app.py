@@ -1,28 +1,22 @@
 import streamlit as st
-import pandas as pd
 from recommendation_system import recommend_songs
-from dotenv import load_dotenv
-import os
 
-# Load environment variables
-load_dotenv()
+st.set_page_config(page_title="🎧 Music Recommendation System", layout="centered")
 
-# Load dataset
-base_path = r"C:\Users\DELL\OneDrive\Bureau\New folder\Recommandation_System"
-data = pd.read_csv("data.csv")
-st.set_page_config(page_title="🎵 Spotify Recommender", layout="centered")
-st.title("🎧 Music Recommendation System")
+st.title("🎵 Song Recommendation App")
+st.markdown("Find similar songs based on your favorite track.")
 
-song_name = st.text_input("Enter a song name", value="Shape of You")
-song_year = st.number_input("Enter release year", min_value=1900, max_value=2025, value=2017)
+# Input fields
+song = st.text_input("Enter a song name")
+result = recommend_songs(song)
 
-if st.button("Recommend"):
-    with st.spinner("Finding similar songs..."):
-        input_song = [{"name": song_name, "year": int(song_year)}]
-        recommendations = recommend_songs(input_song, data)
 
-        if recommendations.empty:
-            st.warning("No recommendations found. Try a different song.")
+# Recommend button
+if st.button("🔍 Recommend Songs"):
+    with st.spinner("Finding recommendations..."):
+        recommendations = recommend_songs(song_name, year)
+        if isinstance(recommendations, str):
+            st.error(recommendations)
         else:
-            st.success("Here are your top 10 recommendations:")
+            st.success("Here are your recommended songs:")
             st.dataframe(recommendations)
